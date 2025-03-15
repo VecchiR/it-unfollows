@@ -18,6 +18,50 @@ interface UserProfile {
 
 interface Image {
     url: string;
-    height: number;
-    width: number;
+    height: number | null;
+    width: number | null;
+}
+
+interface FollowedArtistsRequest {
+    type: "artist";
+    after?: string;
+    limit?: number;
+}
+
+
+interface FollowedArtistsResponse {
+    href: string;
+    limit: number;
+    next: string;
+    cursors: {
+        after: string;
+        before: string;
+    }
+    total: number;
+    items: Artist[];
+}
+
+interface Artist {
+    external_urls: {
+        spotify: string
+    };
+    followers: {
+        href: string | null;
+        total: number;
+    };
+    genres: string[];
+    href: string;
+    id: string;
+    images: Image[];
+    name: string;
+    popularity: number;
+    type: "artist";
+    uri: string;
+
+}
+
+
+interface Error {
+    status: number;
+    message: string;
 }

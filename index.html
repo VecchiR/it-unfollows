@@ -1,28 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>My Spotify Profile</title>
-        <script src="src/script.ts" type="module"></script>
-    </head>
-    <body>
-      <h1>Display your Spotify profile data</h1>
 
-      <section id="profile">
-      <h2>Logged in as <span id="displayName"></span></h2>
-      <span id="avatar"></span>
-      <ul>
-          <li>User ID: <span id="id"></span></li>
-          <li>Email: <span id="email"></span></li>
-          <li>Spotify URI: <a id="uri" href="#"></a></li>
-          <li>Link: <a id="url" href="#"></a></li>
-          <li>Profile Image: <span id="imgUrl"></span></li>
-      </ul>
-      </section>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>My Spotify Profile</title>
+    <script src="src/script.ts" type="module"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/vs.min.css" />
+    <script
+        src="https://cdn.jsdelivr.net/npm/@heppokofrontend/html-code-block-element/lib/html-code-block-element.common.min.js"
+        defer></script>
+
+</head>
+
+<body>
+
+
+    <code-block language="js" label="getFollowedUsers.js" controls>
+        function script() {
+        const userCardsContainer = document.querySelector("div[data-testid='grid-container']");
+        if (userCardsContainer == null) {
+        console.error(`Something went wrong! Couldn't find the 'userCardsContainer'. There should be a 'div' element
+        with an attribute data-testid='grid-container'. Try reloading the page and run the script again. If the problem
+        persists, maybe this attribute was renamed or something else was changed - or the problem is in you end. Anyway:
+        contact me so I can try to solve the issue!`);
+        return;
+        }
+        const anchorsNodeList = userCardsContainer.querySelectorAll('a');
+        const anchorsArray = Array.from(anchorsNodeList);
+        const regex = new RegExp('spotify.com/user/');
+        const userUrls = anchorsArray.filter((a) => regex.test(a.href)).map((url) => url.href);
+        return userUrls;
+        }
+        script();
+    </code-block>
+
+
+    <form>
+        <input type="text" placeholder="paste the returned object"
+            value='["https://open.spotify.com/user/véxi",
+            "https://open.spotify.com/user/kaaramaqui"]'>
+        <button type="button">submit</button>
+    </form>
+
+
+
+</body>
+
 </html>
 
- <!-- Note- We're referring directly to the TypeScript file, 
+<!-- Note- We're referring directly to the TypeScript file, 
  and we're using the `type="module"` attribute. 
  Vite will transpile our TypeScript to JavaScript 
  so that it can run in the browser. -->
